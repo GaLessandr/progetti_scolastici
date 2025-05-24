@@ -1,0 +1,24 @@
+{
+  "1° anno": [
+    {
+      "titolo": "Sito HTML base",
+      "descrizione": "Un semplice sito con solo HTML."
+    },
+    {
+      "titolo": "Presentazione PowerPoint",
+      "descrizione": "Progetto su Galileo Galilei."
+    }
+  ],
+  "2° anno": [
+    {
+      "titolo": "Calcolatrice JS",
+      "descrizione": "Piccola app in JavaScript."
+    }
+  ],
+  "3° anno": [
+    {
+      "titolo": "Gestione biblioteca",
+      "descrizione": "App con HTML, CSS e JS per gestire una biblioteca."
+    }
+  ]
+}

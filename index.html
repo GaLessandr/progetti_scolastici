@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progetti Scolastici</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+  <header>
+    <h1>I Miei Progetti Scolastici</h1>
+    <p>Un archivio dei lavori svolti durante le superiori</p>
+  </header>
+
+  <section id="filtri">
+  <label for="materia-select">Materia:</label>
+  <select id="materia-select">
+    <option value="tutti">Tutti</option>
+  </select>
+
+  <label for="tipo-select">Tipo:</label>
+  <select id="tipo-select">
+    <option value="tutti">Tutti</option>
+  </select>
+
+  <input type="text" id="search-input" placeholder="Cerca progetto...">
+    </section>
+
+  <main>
+    <section id="progetti-container"></section>
+  </main>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span id="chiudi-modal" class="close">&times;</span>
+      <h2 id="modal-titolo"></h2>
+      <p id="modal-descrizione"></p>
+      <a id="modal-github" target="_blank">Vedi su GitHub</a>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

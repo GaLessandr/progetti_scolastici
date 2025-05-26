@@ -20,5 +20,14 @@
       "titolo": "Gestione biblioteca",
       "descrizione": "App con HTML, CSS e JS per gestire una biblioteca."
     }
+  ],
+  "4° anno": [
+    {
+      "titolo": "Gestione Biblioteca Web",
+      "materia": "Informatica",
+      "descrizione": "Un'applicazione web che permette di gestire libri, prestiti e utenti con interfaccia responsive. Realizzata in HTML, CSS, JavaScript e PHP con database MySQL.",
+      "github": "https://github.com/esempio/biblioteca-web"
+    }
   ]
+  
 }

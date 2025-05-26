@@ -35,15 +35,30 @@ header {
 }
 
 #filtri {
-  padding: 1rem 2rem;
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.filtri-container {
+  display: flex;
+  align-items: center;
   gap: 1rem;
+  flex-wrap: wrap;
 }
-#filtri select, #filtri input {
-  padding: 0.5rem;
+
+.filtri-container label {
+  font-weight: bold;
+}
+
+
+.filtri-container select,.filtri-container input {
+  padding: 6px 10px;
   font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }
+
 
 
 .modal {
@@ -72,3 +87,4 @@ header {
   font-size: 1.5rem;
   cursor: pointer;
 }
+

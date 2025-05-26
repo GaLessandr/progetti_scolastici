@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interfaccia Query SQL</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: #f5f5f5;
+      display: flex;
+      height: 100vh;
+    }
+
+    #menu {
+      width: 300px;
+      background: #2c3e50;
+      color: white;
+      padding: 20px;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
+
+    #menu h2 {
+      margin-top: 0;
+      font-size: 22px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #34495e;
+      padding-bottom: 5px;
+    }
+
+    #menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #menu li {
+      padding: 10px;
+      margin-bottom: 8px;
+      background: #34495e;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #menu li:hover, #menu li.active {
+      background: #1abc9c;
+    }
+
+    #contenuto {
+      flex-grow: 1;
+      padding: 30px;
+      background: white;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
+
+    #contenuto h3 {
+      margin-top: 0;
+      font-size: 24px;
+      color: #34495e;
+    }
+
+    pre {
+      background: #ecf0f1;
+      padding: 15px;
+      border-radius: 6px;
+      white-space: pre-wrap;
+      font-size: 16px;
+      overflow-x: auto;
+      box-shadow: inset 1px 1px 5px rgba(0,0,0,0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 16px;
+    }
+
+    thead tr {
+      background: #ecf0f1;
+    }
+
+    thead th, tbody td {
+      border: 1px solid #bbb;
+      padding: 8px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+
+  </style>
+</head>
+<body>
+  <nav id="menu">
+    <h2>Query SQL</h2>
+    <ul id="query-list">
+      <!-- Liste dinamiche -->
+    </ul>
+  </nav>
+  <main id="contenuto">
+    <h3>Seleziona una query dal menu</h3>
+  </main>
+
+  <script>
+    // Risultati simulati (per semplicità)
+    const risultati = [
+      [{Direttore: "Galli"}, {Direttore: "Gatti"}],
+      [{Titolo_Opera: "L'ultimastella"}, {Titolo_Opera: "La settima onda"}, {Titolo_Opera: "La nuova alba"}],
+      [
+        {Autore_musica: "Viola", titolo: "La settima onda"},
+        {Autore_musica: "Luca Bianchi", titolo: "Gestione Magazzino"}
+      ],
+      [{Nome: "Laura", Cognome: "Pausini"}, {Nome: "Rosario", Cognome: "Fiorello"}],
+      [{Direttore: "Galli", Regista: "Lucci"}, {Direttore: "Gatti", Regista: "Neri"}],
+      [{Orchestra: "Sinfonia", Data_rappresentazione: "2008-12-27"}, {Orchestra: "Sanremo", Data_rappresentazione: "2011-03-20"}],
+      [{Id: "1", interprete_ruolo: "Protagonista"}, {Id: "1", interprete_ruolo: "Antagonista"}, {Id: "1", interprete_ruolo: "Protagonista"}],
+      [
+        {Id: "2", Regista: "Neri", Direttore: "Gatti", Data_rappresentazione: "2010-02-25", Orchestra: "Sinfonia"},
+        {Id: "3", Regista: "Rossi", Direttore: "Galli", Data_rappresentazione: "2011-03-20", Orchestra: "Sanremo"}
+      ],
+      [
+        {Codice: "2", Autore_libretto: "Maria Sole", Autore_musica: "Viola", Titolo: "L'ultimastella", Anno: "2012", Luogo_prima: "Roma"},
+        {Codice: "4", Autore_libretto: "Steven Mori", Autore_musica: "Stella", Titolo: "La nuova alba", Anno: "2018", Luogo_prima: "Roma"}
+      ],
+      [
+        {Id: "1", Regista: "Lucci", Direttore: "Galli", Data_rappresentazione: "2008-12-27", Orchestra: "Sinfonia"}
+      ],
+      [
+        {Titolo: "L'ultimastella"},
+        {Titolo: "La settima onda"}
+      ],
+      [
+        {Nome: "Rosario", Cognome: "Fiorello"},
+      ],
+      [
+        {Titolo_Opera: "La settima onda", Anno_Prima_Teatrale: "2010"},
+        {Titolo_Opera: "La nuova alba", Anno_Prima_Teatrale: "2018"}
+      ]
+    ];
+
+    const queries = [
+      {
+        titolo: "Direttori degli spettacoli senza ripetizioni",
+        sql: `SELECT DISTINCT Direttore FROM spettacoli;`
+      },
+      {
+        titolo: "Titolo opere con autore musica Viola o Stella",
+        sql: `SELECT Titolo AS Titolo_Opera FROM Opere WHERE Autore_musica = "Viola" OR Autore_musica = "Stella";`
+      },
+      {
+        titolo: "Autore musica e titolo opere prodotte prima del 2010 a Milano o Roma",
+        sql: `SELECT Autore_musica, titolo FROM Opere WHERE Anno < "2010" AND Luogo_prima IN("Milano", "Roma");`
+      },
+      {
+        titolo: "Cantanti esclusi mezzo soprano e baritono in ordine alfabetico",
+        sql: `SELECT Nome, Cognome FROM Cantanti WHERE Voce <> "Mezzo_soprano" AND Voce <> "Baritono" ORDER BY Nome;`
+      },
+      {
+        titolo: "Direttore e regista spettacoli con orchestra Sinfonia",
+        sql: `SELECT Direttore, Regista FROM Spettacoli WHERE Orchestra = "Sinfonia";`
+      },
+      {
+        titolo: "Orchestra e data degli spettacoli diretti da Galli",
+        sql: `SELECT Orchestra, Data_rappresentazione FROM Spettacoli WHERE Direttore = "Galli";`
+      },
+      {
+        titolo: "Progetti protagonisti e antagonisti ma non amici (rinomina interprete_ruolo)",
+        sql: `SELECT Id, Personaggio AS interprete_ruolo FROM Interpretazioni WHERE Personaggio = "Protagonista" OR Personaggio = "antagonista";`
+      },
+      {
+        titolo: "Spettacoli tra il 2010 e il 2016 con orchestra diversa da Sanremo",
+        sql: `SELECT * FROM Spettacoli WHERE Data_rappresentazione BETWEEN "2010-01-01" AND "2016-12-31";`
+      },
+      {
+        titolo: "Opere prodotte prima del 2018 a Roma con autore musica Viola",
+        sql: `SELECT * FROM Opere WHERE Anno < "2018" AND Luogo_prima = "Roma" AND Autore_musica = "Viola";`
+      },
+      {
+        titolo: "Spettacoli di Lucci nel 2008 con orchestra diversa da Mille note",
+        sql: `SELECT * FROM Spettacoli WHERE Regista = "Lucci" AND Data_rappresentazione BETWEEN "2008-01-01" AND "2008-12-31" AND Orchestra <> "Mille note";`
+      },
+      {
+        titolo: "Opere escluse titolo 'l’arcobaleno' e 'la nuova alba' e anno 2000",
+        sql: `SELECT Titolo FROM Opere WHERE Titolo <> "l’arcobaleno" AND Titolo <> "la nuova alba" AND Anno <> "2000";`
+      },
+      {
+        titolo: "Cantanti con seconda lettera del cognome O e penultima D",
+        sql: `SELECT Nome, Cognome FROM Cantanti WHERE Cognome LIKE "_o%D_";`
+      },
+      {
+        titolo: "Titolo e anno opere iniziano con L, eseguite dopo il 2008 a Roma o Milano",
+        sql: `SELECT Titolo AS Titolo_Opera, Anno AS Anno_Prima_Teatrale FROM Opere WHERE Titolo LIKE "L%" AND Anno > "2008" AND Luogo_prima IN ("Roma", "Milano");`
+      }
+    ];
+
+    const lista = document.getElementById("query-list");
+    const contenuto = document.getElementById("contenuto");
+
+    function creaTabella(dati) {
+      if (!dati || dati.length === 0) {
+        return '<p>Nessun risultato.</p>';
+      }
+
+      // Prendi le chiavi del primo oggetto come colonne
+      const colonne = Object.keys(dati[0]);
+
+      let html = '<table><thead><tr>';
+      colonne.forEach(col => {
+        html += `<th>${col}</th>`;
+      });
+      html += '</tr></thead><tbody>';
+
+      dati.forEach(riga => {
+        html += '<tr>';
+        colonne.forEach(col => {
+          html += `<td>${riga[col] !== undefined ? riga[col] : ''}</td>`;
+        });
+        html += '</tr>';
+      });
+
+      html += '</tbody></table>';
+      return html;
+    }
+
+    queries.forEach((q, i) => {
+      const li = document.createElement("li");
+      li.textContent = q.titolo;
+      li.addEventListener("click", () => {
+        // evidenzia selezione
+        document.querySelectorAll("#query-list li").forEach(el => el.classList.remove("active"));
+        li.classList.add("active");
+
+        contenuto.innerHTML = `
+          <h3>${q.titolo}</h3>
+          <pre>${q.sql}</pre>
+          ${creaTabella(risultati[i])}
+        `;
+      });
+      lista.appendChild(li);
+    });
+  </script>
+</body>
+</html>

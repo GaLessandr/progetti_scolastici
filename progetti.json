@@ -1,0 +1,34 @@
+{
+  "2024": [
+    {
+      "titolo": "Gestione Teatro",
+      "materia": "Informatica",
+      "tipo": "Web App",
+      "descrizione": "Script sql per la gestione di un teatro.",
+      "github": "https://github.com/utente/gestione-magazzino"
+    },
+    {
+      "titolo": "Monitoraggio Reti",
+      "materia": "Sistemi e Reti",
+      "tipo": "Analisi di rete",
+      "descrizione": "Progetto per monitorare traffico e pacchetti su una rete scolastica.",
+      "github": "https://github.com/utente/monitoraggio-reti"
+    }
+  ],
+  "2023": [
+    {
+      "titolo": "Automazione Domestica con Arduino",
+      "materia": "Tecnologie e Progettazione di Sistemi Informatici",
+      "tipo": "IoT",
+      "descrizione": "Sistema di automazione luci e temperatura con Arduino e sensori.",
+      "github": "https://github.com/utente/arduino-domotica"
+    },
+    {
+      "titolo": "Portale Studenti",
+      "materia": "Informatica",
+      "tipo": "Sito Web",
+      "descrizione": "Portale per gestire voti, assenze e documenti degli studenti.",
+      "github": "https://github.com/utente/portale-studenti"
+    }
+  ]
+}

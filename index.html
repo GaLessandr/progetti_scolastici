@@ -11,22 +11,23 @@
 
   <header>
     <h1>I Miei Progetti Scolastici</h1>
-    <p>Un archivio dei lavori svolti durante le superiori</p>
+    <p>Un archivio dei lavori svolti durante La Scuola Secondaria di Primo grado</p>
   </header>
 
   <section id="filtri">
-  <label for="materia-select">Materia:</label>
-  <select id="materia-select">
-    <option value="tutti">Tutti</option>
-  </select>
-
-  <label for="tipo-select">Tipo:</label>
-  <select id="tipo-select">
-    <option value="tutti">Tutti</option>
-  </select>
-
-  <input type="text" id="search-input" placeholder="Cerca progetto...">
-    </section>
+    <div class="filtri-container">
+      <label for="materia-select">Materia:</label>
+      <select id="materia-select">
+        <option value="tutti">Tutti</option>
+        <option value="Informatica">Informatica</option>
+        <option value="Sistemi e Reti">Sistemi e Reti</option>
+        <option value="Tecnologie e Progettazione di Sistemi Informatici">Tecnologie e Progettazione di Sistemi Informatici (TPSIT)</option>
+      </select>
+  
+      <input type="text" id="search-input" placeholder="Cerca progetto...">
+    </div>
+  </section>
+  
 
   <main>
     <section id="progetti-container"></section>
